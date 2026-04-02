@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
+from .config import get_cors_origins, get_upload_dir
 from .database import Base, engine
 from .routes import auth, bmi, meals
 
@@ -13,14 +14,13 @@ app = FastAPI(title="NutriVision API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=get_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-uploads_dir = Path("uploads")
-uploads_dir.mkdir(exist_ok=True)
+uploads_dir = get_upload_dir()
 
 app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
 

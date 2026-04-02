@@ -9,13 +9,13 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..auth import get_current_user
+from ..config import get_upload_dir
 from ..database import get_db
 from ..services.nutrition_ai import analyze_meal_image
 
 router = APIRouter(tags=["meals"])
 
-UPLOAD_DIR = Path("uploads")
-UPLOAD_DIR.mkdir(exist_ok=True)
+UPLOAD_DIR = get_upload_dir()
 
 
 def _start_of_day(target: datetime) -> datetime:
