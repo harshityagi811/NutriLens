@@ -7,3 +7,5 @@ python-multipart==0.0.20
 pydantic[email]==2.10.6
 openai==1.70.0
 psycopg[binary]==3.2.6
+pydantic==2.7.1
+pydantic-core==2.18.2
