@@ -73,6 +73,59 @@ npm run dev
 
 Frontend runs on `http://localhost:5173` and expects the backend on `http://127.0.0.1:8000`.
 
+## Recommended Deployment
+
+For this MVP, the cleanest production setup is:
+
+- Backend: Render Web Service
+- Database: Render Postgres
+- Frontend: Vercel
+- Upload storage:
+  - MVP option: keep local uploads only for development
+  - Production recommendation: move image storage to Cloudinary, S3, or Supabase Storage
+
+### Why Postgres instead of SQLite in production
+
+SQLite is fine locally, but hosted platforms usually provide ephemeral filesystems unless you attach persistent storage. This app now supports `DATABASE_URL`, so production can use Postgres directly without code changes.
+
+### Render backend environment variables
+
+Set these on your backend service:
+
+```bash
+DATABASE_URL=postgresql://...
+JWT_SECRET_KEY=replace-with-a-long-random-secret
+CORS_ORIGINS=https://your-frontend-domain.vercel.app
+UPLOAD_DIR=/opt/render/project/src/uploads
+```
+
+Optional:
+
+```bash
+OPENAI_API_KEY=your_key_here
+OPENAI_VISION_MODEL=gpt-4.1-mini
+```
+
+### Vercel frontend environment variables
+
+Set this on the Vercel project:
+
+```bash
+VITE_API_URL=https://your-render-backend.onrender.com
+```
+
+### Backend start command on Render
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
+
+### Backend build command on Render
+
+```bash
+pip install -r requirements.txt
+```
+
 ## Demo Credentials
 
 - Email: `demo@nutrivision.app`
