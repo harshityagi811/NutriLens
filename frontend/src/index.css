@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body text-slate-900 antialiased transition-colors duration-300 dark:text-slate-100;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-3xl border border-white/10 bg-white/70 p-6 shadow-glass backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60;
+  }
+
+  .soft-card {
+    @apply rounded-2xl border border-slate-200/60 bg-white/80 shadow-glass backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/70;
+  }
+}
